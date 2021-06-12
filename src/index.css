@@ -17,26 +17,7 @@ li p, li button {
   border: none;
 }
 
-.animal-button {
-  background-color: orangered;
-}
-
-.fact-item {
-  display: inline-block;
-  margin-right: 0;;
-  background-color: green;
-}
-
-.remove-fact-button {
-  display: inline-block;
-  margin-left: 0;
-  background-color: red;
-}
-
-.add-fact-button {
-  background-color: hotpink;
-}
-
-.all-fact-item {
-  background-color: palegreen;
+.ProductPage img {
+  width: 120px;
+  height: 120px;
 }
