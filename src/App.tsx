@@ -9,8 +9,13 @@ import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductPage from './pages/ProductPage';
+import { useAppSelector } from './redux/hooks';
+import { AppState } from './redux/store';
 
 function App() {
+  const account = useAppSelector((state: AppState) => {
+    return state.account;
+  });
   return (
     <div className="App">
       <Router>
@@ -34,6 +39,11 @@ function App() {
               <AccountLoginPage />
             </Route>
             <Redirect from="/" to="/products" />
+            {account ?
+              <Redirect from="/login" to="/account" />
+              :
+              <Redirect from="/account" to="/login" />
+            }
           </Switch>
         </div>
       </Router>

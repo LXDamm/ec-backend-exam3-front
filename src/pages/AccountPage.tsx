@@ -1,3 +1,4 @@
+import { Redirect } from "react-router";
 import AccountEditForm from "../components/account/AccountEditForm";
 import { useAppSelector } from "../redux/hooks";
 import { AppState } from "../redux/store";
@@ -9,7 +10,11 @@ function AccountPage() {
     });
     return (
         <div className="AccountPage">
-            <AccountEditForm account={account} />
+            {account ?
+                <AccountEditForm account={account} />
+                :
+                <Redirect to="/login" />
+            }
         </div>
     );
 }
