@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginAccount } from "../../api/api";
 import { setAccount } from "../../redux/accountSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface LoginCredentials {
     username: string;
@@ -9,7 +10,7 @@ interface LoginCredentials {
 }
 
 function AccountLoginForm() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [credentials, setCredentials] = useState<LoginCredentials>({username: '', password: ''});
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setCredentials({...credentials, username: event.target.value});

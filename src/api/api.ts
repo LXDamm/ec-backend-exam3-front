@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080/sinus_shop'
+    baseURL: 'http://localhost:32468/sinus_shop'
 });
 
 const getProducts = () => instance.get('/products');
