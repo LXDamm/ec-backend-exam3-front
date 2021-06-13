@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import AccountEditForm from "../components/account/AccountEditForm";
 import { useAppSelector } from "../redux/hooks";
 import { AppState } from "../redux/store";

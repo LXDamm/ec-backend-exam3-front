@@ -7,27 +7,32 @@ interface Props {
 }
 
 function AccountEditForm(props: Props) {
-    const [formEdit, saveFormEdit] = useState({ userEditToggle: false, addressEditToggle: false });
+    const [formEdit, setFormEdit] = useState({ userEditToggle: false, addressEditToggle: false });
+    const [account, setAccount] = useState<Account>({
+         username: '', password: '', id: '', firstname: '', lastname: '', address: {
+             street: '', postcode: '', town: ''
+         }, cart: []
+    });
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, username: event.target.value});
     };
     const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, password: event.target.value});
     };
     const handleFirstnameChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, firstname: event.target.value});
     };
     const handleLastnameChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, lastname: event.target.value});
     };
     const handleStreetChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, address: {...account.address, street: event.target.value}});
     };
     const handlePostcodeChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, address: {...account.address, postcode: event.target.value}});
     };
     const handleTownChange = (event: ChangeEvent<HTMLInputElement>) => {
-
+        setAccount({...account, address: {...account.address, town: event.target.value}});
     };
     const handleUserSave = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -55,32 +60,47 @@ function AccountEditForm(props: Props) {
                     }
                 </label>
                 <br></br>
-                <button className="user-form-edit-button" type="button">Edit</button>
+                <button className="user-form-edit-button" type="button" onClick={() => setFormEdit({ userEditToggle: true, addressEditToggle: false }) } >Edit</button>
                 <button className="user-form-save-button" type="submit">Save</button>
             </form>
             <form className="address-form" onSubmit={(event) => handleAddressSave(event)}>
                 <label className="address-form-street">
                     <p>Firstname</p>
-                    <input className="address-form-input" required type="text" onChange={(event) => handleFirstnameChange(event)} />
-                </label>
+                    {formEdit.addressEditToggle ?
+                        <input className="address-form-input" required type="text" defaultValue={props.account.firstname} onChange={(event) => handleFirstnameChange(event)} />
+                        :
+                        <p className="address-form-show">{props.account.firstname}</p>
+                    }</label>
                 <label className="address-form-postcode">
                     <p>Lastname</p>
-                    <input className="address-form-input" required type="text" onChange={(event) => handleLastnameChange(event)} />
-                </label>
+                    {formEdit.addressEditToggle ?
+                        <input className="address-form-input" required type="text" defaultValue={props.account.lastname}  onChange={(event) => handleLastnameChange(event)} />
+                        :
+                        <p className="address-form-show">{props.account.lastname}</p>
+                    }</label>
                 <label className="address-form-street">
                     <p>Street</p>
-                    <input className="address-form-input" required type="text" onChange={(event) => handleStreetChange(event)} />
-                </label>
+                    {formEdit.addressEditToggle ?
+                        <input className="address-form-input" required type="text" defaultValue={props.account.address.street}  onChange={(event) => handleStreetChange(event)} />
+                        :
+                        <p className="address-form-show">{props.account.address.street}</p>
+                    }</label>
                 <label className="address-form-postcode">
                     <p>Postcode</p>
-                    <input className="address-form-input" required type="text" onChange={(event) => handlePostcodeChange(event)} />
-                </label>
+                    {formEdit.addressEditToggle ?
+                        <input className="address-form-input" required type="text" defaultValue={props.account.address.postcode}  onChange={(event) => handlePostcodeChange(event)} />
+                        :
+                        <p className="address-form-show">{props.account.address.postcode}</p>
+                    }</label>
                 <label className="address-form-town">
                     <p>Town</p>
-                    <input required type="text" onChange={(event) => handleTownChange(event)} />
-                </label>
+                    {formEdit.addressEditToggle ?
+                        <input required type="text"  defaultValue={props.account.address.town} onChange={(event) => handleTownChange(event)} />
+                        :
+                        <p className="address-form-show">{props.account.address.town}</p>
+                    }</label>
                 <br></br>
-                <button className="address-form-edit-button" type="button">Edit</button>
+                <button className="address-form-edit-button" type="button" onClick={() => setFormEdit({ userEditToggle: false, addressEditToggle: true }) }>Edit</button>
                 <button className="address-form-save-button" type="submit">Save</button>
             </form>
         </div>
