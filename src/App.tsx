@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import './App.css';
 import Banner from './components/Banner';
 import NavBar from './components/NavBar';
+import AccountLoginPage from './pages/AccountLoginPage';
 import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
 import ProductListPage from './pages/ProductListPage';
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route exact path="/account">
               <AccountPage />
+            </Route>
+            <Route exact path="/login">
+              <AccountLoginPage />
             </Route>
             <Redirect from="/" to="/products" />
           </Switch>

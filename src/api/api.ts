@@ -7,4 +7,9 @@ const instance = axios.create({
 const getProducts = () => instance.get('/products');
 const getProduct = (id: string) => instance.get(`/products/${id}`);
 
-export { instance, getProducts, getProduct };
+const loginAccount = (username: string, password: string) => instance.post('/account/login', { username, password });
+const getAccount = (id: string) => instance.get(`/account/${id}`);
+
+const getCart = (id: string) => instance.get(`/account/${id}/cart`);
+
+export { instance, getProducts, getProduct, loginAccount, getAccount, getCart };

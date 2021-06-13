@@ -30,7 +30,7 @@ function ProductPage() {
                 </>
             );
         }
-    }
+    };
     useEffect(() => {
         getProduct(id)
             .then((response) => {
