@@ -10,10 +10,9 @@ function AccountPage() {
     });
     return (
         <div className="AccountPage">
-            {account ?
-                <AccountEditForm account={account} />
-                :
-                <Redirect to="/login" />
+            {account
+                ? <AccountEditForm account={account} />
+                : <Redirect to="/login" />
             }
         </div>
     );

@@ -1,0 +1,13 @@
+.cart-list {
+    display: grid;
+    padding: 0;
+}
+
+.product-quantity {
+    display: flex;
+    flex-direction: row;
+}
+
+.product-quantity button:hover {
+    cursor: pointer;
+}

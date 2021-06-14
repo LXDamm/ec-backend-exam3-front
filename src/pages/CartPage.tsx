@@ -10,10 +10,9 @@ function CartPage() {
     });
     return (
         <div className="CartPage">
-            {account ?
-                <Cart />
-                :
-                <Redirect to="/login" />
+            {account
+                ? <Cart />
+                : <Redirect to="/login" />
             }
         </div>
     );
