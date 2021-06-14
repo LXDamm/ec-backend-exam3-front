@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useHistory } from "react-router";
 import { loginAccount } from "../../api/api";
 import { setAccount } from "../../redux/accountSlice";
 import { useAppDispatch } from "../../redux/hooks";
@@ -9,6 +10,7 @@ interface LoginCredentials {
 }
 
 function AccountLoginForm() {
+    const history = useHistory();
     const dispatch = useAppDispatch();
     const [credentials, setCredentials] = useState<LoginCredentials>({username: '', password: ''});
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +25,7 @@ function AccountLoginForm() {
             loginAccount(credentials.username, credentials.password)
                 .then((response) => {
                     dispatch(setAccount(response.data));
+                    history.push('/account');
                 })
                 .catch((error) => console.error(error));
         }

@@ -42,7 +42,10 @@ function App() {
             {account ?
               <Redirect from="/login" to="/account" />
               :
-              <Redirect from="/account" to="/login" />
+              <>
+                <Redirect from="/account" to="/login" />
+                <Redirect from="/cart" to="/login" />
+              </>
             }
           </Switch>
         </div>

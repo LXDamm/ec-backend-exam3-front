@@ -1,26 +1,15 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getCart } from "../api/api";
 import { useAppSelector } from "../redux/hooks";
 import { AppState } from "../redux/store";
-import { Product } from "../types/product";
 import Spinner from "./Spinner";
 
 function Cart() {
-    const accountId = useAppSelector((state: AppState) => {
-        return state.account.id;
-    });
-    const [cart, setCart] = useState<Array<Product>>();
-    const renderedCartList = cart?.map((product) => {
-        return (<li key={product.id}><Link to={`/products/${product.id}`}><div className="product-container"><img src={product.imageUrl} alt="Bild" /><p>{product.name}</p></div></Link></li>);
-    });
-    useEffect(() => {
-        getCart(accountId)
-            .then((response) => {
-                setCart(response.data);
-            })
-            .catch((error) => console.error(error));
-    }, [accountId]);
+    const cart = useAppSelector((state: AppState) => state.account.cart);
+    const renderedCartList = () => {
+        cart?.map((item) => {
+            return (<li key={item.id}><Link to={`/products/${item.id}`}><div className="product-container">product id: {item.id}</div></Link></li>);
+        });
+    };
     return (
         <div className="Cart">
             {cart
