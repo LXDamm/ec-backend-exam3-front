@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProducts } from '../api/api';
+import api from '../api/api';
 import ProductFilter from '../components/product/ProductFilter';
 import ProductList from '../components/product/ProductList';
 import Product from '../types/product';
@@ -9,7 +9,7 @@ import './ProductListPage.scss';
 function ProductListPage() {
     const [products, setProducts] = useState<Array<Product>>();
     useEffect(() => {
-        getProducts()
+        api.getProducts()
             .then((response) => {
                 setProducts(response.data);
             })

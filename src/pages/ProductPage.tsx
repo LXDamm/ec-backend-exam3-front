@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getProduct } from '../api/api';
+import api from '../api/api';
 import Spinner from '../components/Spinner';
 import Product from '../types/product';
 import './ProductPage.scss';
@@ -32,7 +32,7 @@ function ProductPage() {
         }
     };
     useEffect(() => {
-        getProduct(id)
+        api.getProduct(id)
             .then((response) => {
                 setProduct(response.data);
             })

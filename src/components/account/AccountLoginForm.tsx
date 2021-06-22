@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useHistory } from "react-router";
-import { loginAccount } from "../../api/api";
 import { setAccount } from "../../redux/accountSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import api from "../../api/api";
 
 interface LoginCredentials {
     username: string;
@@ -22,7 +22,7 @@ function AccountLoginForm() {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (credentials) {
-            loginAccount(credentials.username, credentials.password)
+            api.loginAccount(credentials.username, credentials.password)
                 .then((response) => {
                     dispatch(setAccount(response.data));
                     history.push('/account');

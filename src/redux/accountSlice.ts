@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Address } from 'cluster';
 import Account, { CartProduct } from '../types/account';
 
 const accountSlice = createSlice({
@@ -10,6 +9,13 @@ const accountSlice = createSlice({
             state = action.payload;
             return state;
         },
+        removeCartProduct: (state, action) => {
+            if (state.cart) {
+                const productId = state.cart.findIndex((product: CartProduct) => product.id === action.payload);
+                state.cart.splice(productId, 1);
+                return state;
+            }
+        },
         increaseCartProduct: (state, action) => {
             if (state.cart) {
                 const product = state.cart.find((product: CartProduct) => product.id === action.payload);
@@ -17,7 +23,7 @@ const accountSlice = createSlice({
                 return state;
             }
         },
-        deincreaseCartProduct: (state, action) => {
+        decreaseCartProduct: (state, action) => {
             if (state.cart) {
                 const product = state.cart.find((product: CartProduct) => product.id === action.payload);
                 if (product && product.quantity > 0) product.quantity--;
@@ -27,5 +33,5 @@ const accountSlice = createSlice({
     }
 });
 
-export const { setAccount, increaseCartProduct, deincreaseCartProduct } = accountSlice.actions;
+export const { setAccount, removeCartProduct, increaseCartProduct, decreaseCartProduct } = accountSlice.actions;
 export default accountSlice.reducer;

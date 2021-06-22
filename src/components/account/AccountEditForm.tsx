@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
-import { updateAccount } from "../../api/api";
+import api from "../../api/api";
 import Account, { AccountProps } from "../../types/account";
 
 function AccountEditForm(props: AccountProps) {
@@ -33,11 +33,11 @@ function AccountEditForm(props: AccountProps) {
     };
     const handleUserSave = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        updateAccount(account.id, account);
+        api.updateAccount(account.id, account);
     };
     const handleAddressSave = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        updateAccount(account.id, account);
+        api.updateAccount(account.id, account);
     };
     return (
         <div className="AccountEditForm">
