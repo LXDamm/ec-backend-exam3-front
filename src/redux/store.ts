@@ -8,7 +8,7 @@ export interface AppState {
 
 export const store = configureStore({
   reducer: {
-    account: accountReducer
+    account: accountReducer,
   }
 });
 
