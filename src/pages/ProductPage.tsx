@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { getProduct } from '../api/api';
 import Spinner from '../components/Spinner';
-import { Product } from '../types/product';
+import Product from '../types/product';
 import './ProductPage.scss';
 
 interface RouteParams {

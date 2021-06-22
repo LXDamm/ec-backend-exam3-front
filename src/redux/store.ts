@@ -1,16 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { Account } from '../types/account';
+import Account from '../types/account';
 import accountReducer from './accountSlice';
 
 export interface AppState {
   account: Account;
 }
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    account: accountReducer,
+    account: accountReducer
   }
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

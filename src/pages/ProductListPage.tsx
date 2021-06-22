@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getProducts } from '../api/api';
 import ProductFilter from '../components/product/ProductFilter';
 import ProductList from '../components/product/ProductList';
-import { Product } from '../types/product';
+import Product from '../types/product';
 import './ProductListPage.scss';
 
 

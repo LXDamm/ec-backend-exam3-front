@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import { updateAccount } from "../../api/api";
-import { Account } from "../../types/account";
+import Account, { AccountProps } from "../../types/account";
 
-interface Props {
-    account: Account;
-}
-
-function AccountEditForm(props: Props) {
+function AccountEditForm(props: AccountProps) {
     const [formEdit, setFormEdit] = useState({ userEditToggle: false, addressEditToggle: false });
     const [account, setAccount] = useState<Account>({
          username: '', password: '', id: '', firstname: '', lastname: '', address: {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Account } from '../types/account';
+import Account from '../types/account';
 
 export const instance = axios.create({
     baseURL: 'http://localhost:32468/sinus_shop'

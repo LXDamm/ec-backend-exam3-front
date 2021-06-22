@@ -8,8 +8,8 @@ interface Product {
     imageUrl: string;
 }
 
-interface ProductProps {
+export interface ProductProps {
     products: Array<Product>;
 }
 
-export type { Product, ProductProps };
+export default Product;
