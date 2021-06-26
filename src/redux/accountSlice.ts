@@ -25,9 +25,7 @@ const accountSlice = createSlice({
                 } else {
                     const cartProduct: CartProduct = {
                         id: action.payload.id,
-                        quantity: 1,
-                        name: action.payload.name,
-                        imageUrl: action.payload.imageUrl
+                        quantity: 1
                         
                     };
                     state.cart.push(cartProduct);
