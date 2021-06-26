@@ -11,8 +11,27 @@ const accountSlice = createSlice({
         },
         removeCartProduct: (state, action) => {
             if (state.cart) {
-                const productId = state.cart.findIndex((product: CartProduct) => product.id === action.payload);
-                state.cart.splice(productId, 1);
+                const productIndex = state.cart.findIndex((product: CartProduct) => product.id === action.payload);
+                state.cart.splice(productIndex, 1);
+                return state;
+            }
+        },
+        addCartProduct: (state, action) => {
+            if (state.cart) {
+                console.log("id: " + action.payload.id);
+                const productIndex = state.cart.findIndex((product: CartProduct) => product.id === action.payload.id);
+                if (productIndex > 0) {
+                    state.cart[productIndex].quantity++;
+                } else {
+                    const cartProduct: CartProduct = {
+                        id: action.payload.id,
+                        quantity: 1,
+                        name: action.payload.name,
+                        imageUrl: action.payload.imageUrl
+                        
+                    };
+                    state.cart.push(cartProduct);
+                }
                 return state;
             }
         },
@@ -33,5 +52,5 @@ const accountSlice = createSlice({
     }
 });
 
-export const { setAccount, removeCartProduct, increaseCartProduct, decreaseCartProduct } = accountSlice.actions;
+export const { setAccount, removeCartProduct, addCartProduct, increaseCartProduct, decreaseCartProduct } = accountSlice.actions;
 export default accountSlice.reducer;

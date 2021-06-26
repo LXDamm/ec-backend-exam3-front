@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import api from '../api/api';
 import Spinner from '../components/Spinner';
+import { addCartProduct } from '../redux/accountSlice';
+import { useAppDispatch } from '../redux/hooks';
 import Product from '../types/product';
 import './ProductPage.scss';
 
@@ -12,24 +14,10 @@ interface RouteParams {
 
 function ProductPage() {
     const { id } = useParams<RouteParams>();
+    const dispatch = useAppDispatch();
     const [product, setProduct] = useState<Product>();
-    const renderProduct = (product: Product) => {
-        if (product) {
-            return (
-                <>
-                    {product
-                        ? <>
-                            <h2 className="product-name">{product.name}</h2>
-                            <div className="product-description">{product.description}</div>
-                            <div className="product-image">
-                                <img src={product.imageUrl} alt="Bild på produkt" />
-                            </div>
-                        </>
-                        : <Spinner />
-                    }
-                </>
-            );
-        }
+    const addToCart = (productId: string) => {
+        dispatch(addCartProduct(product));
     };
     useEffect(() => {
         api.getProduct(id)
@@ -38,11 +26,19 @@ function ProductPage() {
             })
             .catch((error) => console.error(error));
     }, [id]);
-    return (
+    if (product) return (
         <div className="ProductPage">
-            {renderProduct(product!)}
+            <div>
+                <h2 className="product-name">{product.name}</h2>
+                <div className="product-description">{product.description}</div>
+                <div className="product-image">
+                    <img src={product.imageUrl} alt="Bild på produkt" />
+                </div>
+            </div>
+            <button onClick={() => addToCart(id)}>Add to cart</button>
         </div>
     );
+    return (<div className="ProductPage"><Spinner></Spinner></div>);
 }
 
 export default ProductPage;

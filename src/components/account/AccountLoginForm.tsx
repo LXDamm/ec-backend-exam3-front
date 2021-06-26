@@ -25,6 +25,7 @@ function AccountLoginForm() {
             api.loginAccount(credentials.username, credentials.password)
                 .then((response) => {
                     dispatch(setAccount(response.data));
+                    sessionStorage.setItem('sinus_account', JSON.stringify(response.data));
                     history.push('/account');
                 })
                 .catch((error) => console.error(error));
