@@ -4,11 +4,6 @@ interface Address {
     town: string;
 }
 
-export interface CartProduct {
-    id: string;
-    quantity: number;
-}
-
 interface Account {
     id: string;
     username: string;
@@ -16,7 +11,6 @@ interface Account {
     firstname: string;
     lastname: string;
     address: Address;
-    cart: Array<CartProduct>;
 }
 
 export interface AccountProps {

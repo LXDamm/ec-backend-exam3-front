@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import './App.css';
@@ -10,26 +8,13 @@ import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductPage from './pages/ProductPage';
-import { setAccount } from './redux/accountSlice';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { useAppSelector } from './redux/hooks';
 import { AppState } from './redux/store';
-import Account from './types/account';
 
 function App() {
-  const dispatch = useAppDispatch();
-  const account = useAppSelector((state: AppState) => {
-    return state.account;
+  const auth = useAppSelector((state: AppState) => {
+    return state;
   });
-  const [sessionAccount, setSessionAccount] = useState<Account>();
-  useEffect(() => {
-    if (!account) {
-      const accountExistInSession = JSON.parse(sessionStorage.getItem('sinus_account')!);
-      if (accountExistInSession) {
-        dispatch(setAccount(accountExistInSession));
-        setSessionAccount(accountExistInSession);
-      }
-    }
-  }, [account, dispatch]);
   return (
     <div className="App">
       <Router>
@@ -37,7 +22,7 @@ function App() {
         <NavBar />
         <div className="page">
           <Switch>
-            <Route exact path="/products/product/:id">
+            <Route exact path="/products/product/:productId">
               <ProductPage />
             </Route>
             <Route exact path="/products/category/:category">
@@ -56,13 +41,12 @@ function App() {
               <AccountLoginPage />
             </Route>
             <Redirect from="/" to="/products" />
-            {(account || sessionAccount) ?
-              <Redirect from="/login" to="/account" />
-              :
-              <>
-                <Redirect from="/account" to="/login" />
-                <Redirect from="/cart" to="/login" />
-              </>
+            {auth
+              ? <Redirect from="/login" to="/account" />
+              : <>
+                  <Redirect from="/account" to="/login" />
+                  <Redirect from="/cart" to="/login" />
+                </>
             }
           </Switch>
         </div>

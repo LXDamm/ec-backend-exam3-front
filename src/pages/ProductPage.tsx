@@ -3,29 +3,37 @@ import { useParams } from 'react-router-dom';
 
 import api from '../api/api';
 import Spinner from '../components/Spinner';
-import { addCartProduct } from '../redux/accountSlice';
-import { useAppDispatch } from '../redux/hooks';
+import { addCartProduct } from '../redux/cartSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import Product from '../types/product';
 import './ProductPage.scss';
 
 interface RouteParams {
-    id: string;
+    productId: string;
 }
 
 function ProductPage() {
-    const { id } = useParams<RouteParams>();
+    const { productId } = useParams<RouteParams>();
+    const accountId = useAppSelector((state) => {
+        if (state.account) return state.account.id;
+        else return null;
+    });
     const dispatch = useAppDispatch();
     const [product, setProduct] = useState<Product>();
     const addToCart = (productId: string) => {
-        dispatch(addCartProduct(product));
+        if (accountId) {
+            api.putCartProduct(accountId, productId, 1);
+            dispatch(addCartProduct(productId));
+        }
     };
     useEffect(() => {
-        api.getProduct(id)
+        api.getProduct(productId)
             .then((response) => {
+                console.log(response.data);
                 setProduct(response.data);
             })
             .catch((error) => console.error(error));
-    }, [id]);
+    }, [productId]);
     if (product) return (
         <div className="ProductPage">
             <div>
@@ -35,7 +43,9 @@ function ProductPage() {
                     <img src={product.imageUrl} alt="Bild på produkt" />
                 </div>
             </div>
-            <button onClick={() => addToCart(id)}>Add to cart</button>
+            {accountId &&
+                <button onClick={() => addToCart(product.id)}>Add to cart</button>
+            }
         </div>
     );
     return (<div className="ProductPage"><Spinner></Spinner></div>);

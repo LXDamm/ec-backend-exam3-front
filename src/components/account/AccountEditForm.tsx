@@ -8,7 +8,7 @@ function AccountEditForm(props: AccountProps) {
     const [account, setAccount] = useState<Account>({
          username: '', password: '', id: '', firstname: '', lastname: '', address: {
              street: '', postcode: '', town: ''
-         }, cart: []
+         }
     });
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setAccount({...account, username: event.target.value});
